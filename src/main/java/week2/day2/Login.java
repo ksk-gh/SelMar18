@@ -4,14 +4,19 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Login {
+	
 	public static void main(String[] args) throws InterruptedException {		
+
+		
 		System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");		
 		//Open the browser
-		ChromeDriver driver = new ChromeDriver();		
+		ChromeDriver driver = new ChromeDriver();	
+	
 		//Maximize the browser
 		driver.manage().window().maximize();		
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -36,18 +41,7 @@ public class Login {
 				.elementToBeClickable(By.xpath("(//[@class='x-grid3-cell-inner x-grid3-col-partyId'])[1]/a")));
 		//Thread.sleep(3000); - Java				
 		
-		driver.findElementByXPath("(//div[@class='x-grid3-cell-inner x-grid3-col-partyId'])[1]/a").click();
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
+		driver.findElementByXPath("(//div[@class='x-grid3-cell-inner x-grid3-col-partyId'])[1]/a").click();		
 	}
 
 }

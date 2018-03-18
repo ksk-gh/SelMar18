@@ -2,6 +2,9 @@ package wdMethods;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -10,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class SeMethods implements WdMethods{
 
@@ -47,9 +51,9 @@ public class SeMethods implements WdMethods{
 		
 	}
 
-	public WebElement locateElement(String locValue) {
-		// TODO Auto-generated method stub
-		return null;
+	//Only for id Locator
+	public WebElement locateElement(String locValue) {		
+		return driver.findElementById(locValue);
 	}
 
 	public void type(WebElement ele, String data) {
@@ -63,39 +67,65 @@ public class SeMethods implements WdMethods{
 		System.out.println("The element is clicked successfully");
 		takeSnap();
 	}
+	
+	public void clickWithNoSnap(WebElement ele) {
+		ele.click();
+		System.out.println("The element is clicked successfully");		
+	}
 
 	public String getText(WebElement ele) {
-		// TODO Auto-generated method stub
-		return null;
+		String txt = ele.getText();
+		System.out.println("");
+		takeSnap();
+		return txt;
 	}
 
 	public void selectDropDownUsingText(WebElement ele, String value) {
-		// TODO Auto-generated method stub
+		new Select(ele).selectByVisibleText(value);
+		System.out.println("");
+		takeSnap();
 
 	}
 
 	public void selectDropDownUsingIndex(WebElement ele, int index) {
-		// TODO Auto-generated method stub
+		new Select(ele).selectByIndex(index);
+		System.out.println("");
+		takeSnap();
 
 	}
 
 	public boolean verifyTitle(String expectedTitle) {
-		// TODO Auto-generated method stub
+		
+		String title = driver.getTitle();
+		if (title.equals(expectedTitle)) {
+			System.out.println("");
+		}
 		return false;
 	}
 
 	public void verifyExactText(WebElement ele, String expectedText) {
-		// TODO Auto-generated method stub
-
+		if(ele.getText().equals(expectedText)) {
+			System.out.println("The text "+ele.getText()+" is matched with "+expectedText);
+		} else {
+			System.out.println("text not match");
+		}
+		takeSnap();
 	}
 
 	public void verifyPartialText(WebElement ele, String expectedText) {
-		// TODO Auto-generated method stub
+		if(ele.getText().contains(expectedText)) {
+			System.out.println("The text "+ele.getText()+" is matched with "+expectedText);
+		} else {
+			System.out.println("text not match");
+		}
+		takeSnap();
 
 	}
 
 	public void verifyExactAttribute(WebElement ele, String attribute, String value) {
-		// TODO Auto-generated method stub
+		if(ele.getAttribute(attribute).equals(value)) {
+			
+		}
 
 	}
 
@@ -105,7 +135,9 @@ public class SeMethods implements WdMethods{
 	}
 
 	public void verifySelected(WebElement ele) {
-		// TODO Auto-generated method stub
+		if (ele.isSelected()) {
+			
+		};
 
 	}
 
@@ -115,28 +147,37 @@ public class SeMethods implements WdMethods{
 	}
 
 	public void switchToWindow(int index) {
-		// TODO Auto-generated method stub
-
+		Set<String> allwindows = driver.getWindowHandles();
+		List<String> winList = new ArrayList<String>();
+		winList.addAll(allwindows);
+		driver.switchTo().window(winList.get(index));
+		System.out.println("");
+		takeSnap();
 	}
 
+	//for WebElement
 	public void switchToFrame(WebElement ele) {
-		// TODO Auto-generated method stub
-
+		driver.switchTo().frame(ele);
+		System.out.println("");
+		takeSnap();
 	}
 
 	public void acceptAlert() {
-		// TODO Auto-generated method stub
+		driver.switchTo().alert().accept();
+		System.out.println("");
+		//takeSnap(); - 
 
 	}
 
 	public void dismissAlert() {
-		// TODO Auto-generated method stub
-
+		driver.switchTo().alert().dismiss();
+		System.out.println("");
 	}
 
 	public String getAlertText() {
-		// TODO Auto-generated method stub
-		return null;
+		String text = driver.switchTo().alert().getText();
+		System.out.println("");
+		return text;
 	}
 
 	int i =1;
@@ -153,12 +194,12 @@ public class SeMethods implements WdMethods{
 	}
 
 	public void closeBrowser() {
-		// TODO Auto-generated method stub
+		driver.close();
 
 	}
 
 	public void closeAllBrowsers() {
-		// TODO Auto-generated method stub
+		driver.quit();
 
 	}
 

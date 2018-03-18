@@ -49,6 +49,14 @@ public interface WdMethods {
 		 * @author Babu - TestLeaf
 		 */
 		public void click(WebElement ele);
+		
+		/**
+		 * This method will click the element
+		 * @param ele   - The Webelement (button/link/element) to be clicked
+		 * @author Babu - TestLeaf
+		 */
+		
+		public void clickWithNoSnap(WebElement ele);
 
 		/**
 		 * This method will get the text of the element

@@ -1,7 +1,11 @@
 package wdMethods;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -24,6 +28,7 @@ public class SeMethods implements WdMethods{
 		driver.get(url);
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		System.out.println("The "+browser+" browser launched successfully");
+		takeSnap();
 	}
 
 	public WebElement locateElement(String locator, String locValue) {
@@ -50,13 +55,13 @@ public class SeMethods implements WdMethods{
 	public void type(WebElement ele, String data) {
 		ele.sendKeys(data);
 		System.out.println("The given value is entered "+data);
-
+		takeSnap();
 	}
 
 	public void click(WebElement ele) {
 		ele.click();
 		System.out.println("The element is clicked successfully");
-
+		takeSnap();
 	}
 
 	public String getText(WebElement ele) {
@@ -134,9 +139,17 @@ public class SeMethods implements WdMethods{
 		return null;
 	}
 
+	int i =1;
 	public void takeSnap() {
-		// TODO Auto-generated method stub
-
+		File src = driver.getScreenshotAs(OutputType.FILE);
+		File des = new File("./snaps/img"+i+".png");
+		try {
+			FileUtils.copyFile(src, des);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		i++;
 	}
 
 	public void closeBrowser() {

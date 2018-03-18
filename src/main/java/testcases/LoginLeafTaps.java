@@ -1,4 +1,4 @@
-package week2.day2testcases;
+package testcases;
 
 import org.junit.Test;
 import org.openqa.selenium.WebElement;

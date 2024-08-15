@@ -172,7 +172,7 @@ public interface WdMethods {
 		 * This method will take snapshot of the browser
 		 * @author Babu - TestLeaf
 		 */
-		public void takeSnap();
+		/* public void takeSnap(); */
 			
 		/**
 		 * This method will close the active browser

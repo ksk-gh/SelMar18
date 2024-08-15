@@ -1,7 +1,7 @@
-package leaf.Lead;
+package lead;
 
 
-import org.testng.annotations.Test;
+/*import org.testng.annotations.Test;
 
 import learnRet.MyRetryAnalyzer;
 import wdMethods.ProjectMethods;
@@ -35,3 +35,4 @@ public class CreateLeadRet extends ProjectMethods{
 
 
 
+*/

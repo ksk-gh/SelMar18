@@ -1,4 +1,4 @@
-package leaf.Lead;
+package lead;
 
 import org.testng.annotations.Test;
 import wdMethods.ProjectMethods;

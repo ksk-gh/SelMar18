@@ -1,23 +1,45 @@
 package wdMethods;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
+import utils.Reporter;
 
-public class SeMethods implements WdMethods{
+public class SeMethods extends Reporter implements WdMethods{
+	
+	public static RemoteWebDriver driver;
+	public String sUrl,sHubUrl,sHubPort;
+	public Properties prop;
+	
+	public SeMethods() {
+		prop = new Properties();
+		try {
+			prop.load(new FileInputStream(new File("./src/main/resources/config.properties")));
+			sHubUrl = prop.getProperty("HUB");
+			sHubPort = prop.getProperty("PORT");
+			sUrl = prop.getProperty("URL");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-	RemoteWebDriver driver = null;
 	public void startApp(String browser, String url) {
 		if (browser.equalsIgnoreCase("chrome")) {
 			System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
@@ -34,7 +56,26 @@ public class SeMethods implements WdMethods{
 		System.out.println("The "+browser+" browser launched successfully");
 		takeSnap();
 	}
-
+	public void startApp(String browser, boolean bRemote) {
+		if (browser.equalsIgnoreCase("chrome")) {
+			System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
+			 driver = new ChromeDriver();
+		}else if (browser.equalsIgnoreCase("firefox")) {
+			System.setProperty("webdriver.gecko.driver", "./drivers/geckodriver.exe");
+			 driver = new FirefoxDriver();
+		}
+		//Maximize the browser
+		driver.manage().window().maximize();
+		//Load the URL
+		//driver.get(url);
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		System.out.println("The "+browser+" browser launched successfully");
+		takeSnap();
+	}
+	public void startApp(String browser) {
+		startApp(browser, false);
+	}
+	
 	public WebElement locateElement(String locator, String locValue) {
 		WebElement ele = null;
 		switch (locator) {
@@ -181,17 +222,19 @@ public class SeMethods implements WdMethods{
 	}
 
 	int i =1;
-	public void takeSnap() {
-		File src = driver.getScreenshotAs(OutputType.FILE);
-		File des = new File("./snaps/img"+i+".png");
+	
+	public long takeSnap(){
+		long number = (long) Math.floor(Math.random() * 900000000L) + 10000000L; 
 		try {
-			FileUtils.copyFile(src, des);
+			FileUtils.copyFile(driver.getScreenshotAs(OutputType.FILE) , new File("./reports/images/"+number+".jpg"));
+		} catch (WebDriverException e) {
+			System.out.println("The browser has been closed.");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("The snapshot could not be taken");
 		}
-		i++;
+		return number;
 	}
+	 
 
 	public void closeBrowser() {
 		driver.close();

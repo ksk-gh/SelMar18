@@ -23,7 +23,7 @@ public class LearnTable {
 
 		driver.findElement(By.id("txtStationTo")).clear();
 		driver.findElement(By.id("txtStationTo")).sendKeys("SBC", Keys.TAB);
-		WebElement table = driver.findElement(By.xpath("//table[@class='DataTable TrainList']"));
+		WebElement table = driver.findElement(By.xpath("//table[contains(@class,'DataTable TrainList')]"));
 		// driver.findElementsByXPath("//table[@class='DataTable TrainList']");
 		List<WebElement> rows = table.findElements(By.tagName("tr"));
 		// Row count

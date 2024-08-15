@@ -13,7 +13,7 @@ public class LearnTable {
 
 	public static void main(String[] args) {
 
-		System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
+		//System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
 		ChromeDriver driver = new ChromeDriver();
 		driver.get("https://erail.in/");
 		driver.manage().window().maximize();

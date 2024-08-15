@@ -2,6 +2,7 @@ package week2.day1;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,8 +22,8 @@ public class LearnDropDown {
 
 		//Load the URL
 		driver.get("https://www.irctc.co.in/eticketing/userSignUp.jsf");
-		//driver.findElementById("userRegistrationForm:securityQ").sendKeys("What is your pet name?");
-		WebElement securityQ = driver.findElementById("userRegistrationForm:securityQ");
+		//driver.findElement(By.id("userRegistrationForm:securityQ").sendKeys("What is your pet name?");
+		WebElement securityQ = driver.findElement(By.id("userRegistrationForm:securityQ"));
 
 		Select dd= new Select(securityQ);
 		/*dd.selectByVisibleText("What was the name of your first school?");

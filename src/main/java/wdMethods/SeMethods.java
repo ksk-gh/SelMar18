@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -11,6 +12,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -52,7 +54,7 @@ public class SeMethods extends Reporter implements WdMethods{
 		driver.manage().window().maximize();
 		//Load the URL
 		driver.get(url);
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		System.out.println("The "+browser+" browser launched successfully");
 		takeSnap();
 	}
@@ -68,7 +70,7 @@ public class SeMethods extends Reporter implements WdMethods{
 		driver.manage().window().maximize();
 		//Load the URL
 		//driver.get(url);
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		System.out.println("The "+browser+" browser launched successfully");
 		takeSnap();
 	}
@@ -80,10 +82,10 @@ public class SeMethods extends Reporter implements WdMethods{
 		WebElement ele = null;
 		switch (locator) {
 		case "id":
-			ele = driver.findElementById(locValue);
+			ele = driver.findElement(By.id(locValue));
 			break;
 		case "class":
-			ele = driver.findElementByClassName(locValue);
+			ele = driver.findElement(By.className(locValue));
 			break;
 		
 		
@@ -94,7 +96,7 @@ public class SeMethods extends Reporter implements WdMethods{
 
 	//Only for id Locator
 	public WebElement locateElement(String locValue) {		
-		return driver.findElementById(locValue);
+		return driver.findElement(By.id(locValue));
 	}
 
 	public void type(WebElement ele, String data) {

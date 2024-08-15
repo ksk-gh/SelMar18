@@ -1,10 +1,12 @@
 package week3.day1;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class LearnWindowHandling {
@@ -13,11 +15,11 @@ public class LearnWindowHandling {
 		System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");		
 		ChromeDriver driver = new ChromeDriver();		
 		driver.manage().window().maximize();		
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		driver.get("http://legacy.crystalcruises.com/");
 		System.out.println(driver.getTitle());
 		System.out.println(driver.getCurrentUrl());
-		driver.findElementByLinkText("GUEST CHECK-IN").click();
+		driver.findElement(By.linkText("GUEST CHECK-IN")).click();
 		Set<String> allwindows = driver.getWindowHandles();
 		List<String> winList = new ArrayList<String>();
 		winList.addAll(allwindows);
